@@ -19,7 +19,7 @@ var host = "192.168.1.39",
 // Using a promise
 
 for(var i = 1; i < 7; i++) {
-    api.setLightState(i, state.off())
+    api.setLightState(i, state.on())
         .then(displayResult)
         .fail(displayError)
         .done();

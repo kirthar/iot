@@ -1,6 +1,6 @@
 var HueApi = require("node-hue-api").HueApi;
 
-var hostname = "192.168.1.34",
+var hostname = "192.168.1.39",
     userDescription = "IoT webapp";
 
 var displayUserResult = function(result) {
