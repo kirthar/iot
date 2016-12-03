@@ -1,6 +1,8 @@
+var config = require('../config/config.json');
+
 var HueApi = require("node-hue-api").HueApi;
 
-var hostname = "192.168.1.39",
+var hostname = config.hue.bridge_ip,
     userDescription = "IoT webapp";
 
 var displayUserResult = function(result) {

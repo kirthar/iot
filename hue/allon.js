@@ -1,3 +1,5 @@
+var config = require('../config/config.json');
+
 var hue = require("node-hue-api"),
     HueApi = hue.HueApi,
     lightState = hue.lightState;
@@ -10,8 +12,8 @@ var displayError = function(err) {
     console.error(err);
 };
 
-var host = "192.168.1.39",
-    username = "l-0MvFqQ8DGcYb7CRKvumOAgUviEM8-Vbb1pRLRN",
+var host = config.hue.bridge_ip,
+    username = config.hue.bridge_token,
     api = new HueApi(host, username),
     state = lightState.create();
 

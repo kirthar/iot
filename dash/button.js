@@ -1,11 +1,10 @@
-var config = {};
-config.BUTTON_MAC = "ac:63:be:d3:84:f7";
-config.HUE_BRIDGE_IP = "192.168.1.39";
-config.HUE_BRIDGE_TOKEN = "l-0MvFqQ8DGcYb7CRKvumOAgUviEM8-Vbb1pRLRN";
+var config = require('../config/config.json');
 
 var dash_button = require('node-dash-button');
 
-var dash = dash_button(config.BUTTON_MAC, null, 1000, 'all'); //address from step above
+var buttons = [config.buttons.on, config.buttons.nerf];
+
+var dash = dash_button(buttons, null, 1000, 'all'); //address from step above
 
 var hue = require("node-hue-api"),
     HueApi = hue.HueApi,
@@ -19,8 +18,8 @@ var displayError = function(err) {
     console.error(err);
 };
 
-var host = config.HUE_BRIDGE_IP,
-    username = config.HUE_BRIDGE_TOKEN,
+var host = config.hue.bridge_ip,
+    username = config.hue.token,
     api = new HueApi(host, username),
     state = lightState.create();
 
@@ -33,7 +32,7 @@ dash.on("detected", function (){
     if (!status) {
         console.log('Turning lights off');
         for(var i = 1; i < 7; i++) {
-            api.setLightState(i, state.of())
+            api.setLightState(i, state.off())
                 .then(displayResult)
                 .fail(displayError)
                 .done();
