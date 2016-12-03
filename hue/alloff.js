@@ -13,7 +13,7 @@ var displayError = function(err) {
 };
 
 var host = config.hue.bridge_ip,
-    username = config.hue.bridge_token,
+    username = config.hue.token,
     api = new HueApi(host, username),
     state = lightState.create();
 

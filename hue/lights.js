@@ -7,7 +7,7 @@ var displayResult = function(result) {
 };
 
 var host = config.hue.bridge_ip,
-    username = config.hue.bridge_token,
+    username = config.hue.token,
     api;
 
 api = new HueApi(host, username);
