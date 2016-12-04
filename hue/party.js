@@ -20,12 +20,40 @@ var host = config.hue.bridge_ip,
 // --------------------------
 // Using a promise
 
-api.setLightState(3, state.on())
+api.setLightState(1, state.on())
     .then(displayResult)
     .fail(displayError)
     .done();
 
-api.setLightState(3, state.colorLoop())
+api.setLightState(1, state.transitionInstant())
     .then(displayResult)
     .fail(displayError)
     .done();
+
+var i = 0;
+
+
+setInterval(function() {
+    if (i % 3 === 0)
+        api.setLightState(1, state.rgb(255, 0, 0))
+        .then(displayResult)
+        .fail(displayError)
+        .done();
+
+    else if (i % 3 === 1)
+        api.setLightState(1, state.rgb(0, 255, 0))
+            .then(displayResult)
+            .fail(displayError)
+            .done();
+
+    else if (i % 3 === 2)
+        api.setLightState(1, state.rgb(0, 0, 255))
+            .then(displayResult)
+            .fail(displayError)
+            .done();
+
+    i++;
+}, 100);
+
+
+

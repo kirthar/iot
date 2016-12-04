@@ -2,7 +2,8 @@
   "name": "iot-kirthar",
   "version": "0.0.1",
   "dependencies": {
-    "node-hue-api": "*",
-    "node-dash-button": "*"
+    "express": "^4.14.0",
+    "node-dash-button": "*",
+    "node-hue-api": "*"
   }
 }
