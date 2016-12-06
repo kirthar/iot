@@ -6,6 +6,8 @@ var buttons = [config.buttons.on, config.buttons.nerf];
 
 var dash = dash_button(buttons, null, 1000, 'all'); //address from step above
 
+var customHue = require('./hue/hue');
+
 var hue = require("node-hue-api"),
     HueApi = hue.HueApi,
     lightState = hue.lightState;
@@ -71,6 +73,15 @@ app.get('/', function (req, res) {
         '</br>' +
         '<a href="/alloff"><button>OFF</button></a>')
 });
+
+app.get('/findlights', function (req, res) {
+    var newHue = new customHue(config.hue);
+
+    newHue.findLights(function(lights) {
+        res.send(lights);
+    });
+});
+
 
 app.get('/alloff', function (req, res) {
     lightsOff();
