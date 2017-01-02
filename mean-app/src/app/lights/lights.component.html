@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3" *ngFor="let light of lights">
+      <div class="card card-block">
+        <h4 class="card-title">{{ light.name}}</h4>
+        <p class="card-text">{{light.id}} {{light.state.on}}</p>
+        <p [style]="lightHslColor(light)">
+          TEST
+        </p>
+        <button (click)="turnOnLight(light)" class="card-link btn" [ngClass]="{'btn-primary': light.state.on}">ON</button>
+        <button (click)="turnOffLight(light)" class="card-link btn" [ngClass]="{'btn-primary': !light.state.on}">OFF</button>
+      </div>
+    </div>
+  </div>
+</div>
