@@ -12,15 +12,19 @@ export class LightsService {
         .map(res => res.json());
   }
 
+  getLight( light: any ) {
+    return this.http.get(`/api/lights/${light.id}`)
+      .map(res => res.json());
+  }
+
   turnOnLight( light: any ) {
-    console.log('SERVICE ON', light);
-    return this.http.get('/api/on/' + light.id)
-      .map(res => console.log('LIGHT TURNED ON'));
+    return this.http.get(`/api/lights/${light.id}/on`)
+      .map(res => res.json());
   }
 
   turnOffLight( light: any ) {
-    return this.http.get('/api/off/' + light.id)
-      .map(res => console.log('OFF TURNED LIGHT'));
+    return this.http.get(`/api/lights/${light.id}/off`)
+      .map(res => res.json());
   }
 
 }

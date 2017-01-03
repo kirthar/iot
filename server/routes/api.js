@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// declare axios for making http requests
-const axios = require('axios');
-const API = 'https://jsonplaceholder.typicode.com';
-
 var config = require('../../config/config.json');
 var customHue = require('../lib/hue/hue');
 
@@ -12,20 +8,19 @@ var hue = require("node-hue-api"),
   HueApi = hue.HueApi,
   lightState = hue.lightState;
 
-
 var host = config.hue.bridge_ip,
   username = config.hue.token,
   api = new HueApi(host, username),
   state = lightState.create();
 
 
-var lightOn = function (light) {
-  api.setLightState(light, state.on())
+var lightOn = function (light, callback) {
+  api.setLightState(light, state.on()).then(callback)
     .done();
 };
 
-var lightOff = function (light) {
-  api.setLightState(light, state.off())
+var lightOff = function (light, callback) {
+  api.setLightState(light, state.off()).then(callback)
     .done();
 };
 
@@ -34,6 +29,7 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
+/* GET Lights */
 router.get('/lights', function (req, res) {
   var newHue = new customHue(config.hue);
 
@@ -42,15 +38,26 @@ router.get('/lights', function (req, res) {
   });
 });
 
-
-router.get('/on/:light', function (req, res) {
-  lightOn(req.params['light']);
-  res.status(200).send();
+router.get('/lights/:light', function (req, res) {
+  api.lightStatus(req.params['light']).then(function(result) {
+    res.status(200).json(result);
+  }).done();
 });
-// ROUTES
-router.get('/off/:light', function (req, res) {
-  lightOff(req.params['light']);
-  res.status(200).send();
+
+router.get('/lights/:light/on', function (req, res) {
+  lightOn(req.params['light'], function(){
+    api.lightStatus(req.params['light']).then(function(result) {
+      res.status(200).json(result);
+    }).done();
+  });
+});
+
+router.get('/lights/:light/off', function (req, res) {
+  lightOff(req.params['light'], function() {
+    api.lightStatus(req.params['light']).then(function(result) {
+      res.status(200).json(result);
+    }).done();
+  });
 });
 
 module.exports = router;

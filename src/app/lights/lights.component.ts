@@ -27,16 +27,23 @@ export class LightsComponent implements OnInit {
   }
 
   turnOnLight(light: any){
-    console.log("TURN ON", light);
     this.lightsService.turnOnLight(light).subscribe(data => {
-      console.log(data);
+      for (var i = 0; i < this.lights.length; i++) {
+        if (this.lights[i].id === light.id) {
+          this.lights[i].state = data['state'];
+        }
+      }
     });
   }
 
   turnOffLight(light: any) {
-    console.log("OFF TURN");
     this.lightsService.turnOffLight(light).subscribe(data => {
-      console.log(data);
+      console.log('data', data);
+      for (var i = 0; i < this.lights.length; i++) {
+        if (this.lights[i].id === light.id) {
+          this.lights[i].state = data['state'];
+        }
+      }
     });
   }
 }
