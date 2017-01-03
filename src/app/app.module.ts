@@ -5,9 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PostsComponent } from './posts/posts.component';
 
-import { PostsService } from './posts.service';
 import { LightsComponent } from './lights/lights.component';
 import { LightsService } from "./lights.service";
 
@@ -15,12 +13,8 @@ import { LightsService } from "./lights.service";
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'posts',
+    redirectTo: 'lights',
     pathMatch: 'full'
-  },
-  {
-    path: 'posts',
-    component: PostsComponent
   },
   {
     path: 'lights',
@@ -31,7 +25,6 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,
     LightsComponent
   ],
   imports: [
@@ -40,7 +33,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [PostsService, LightsService],
+  providers: [LightsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

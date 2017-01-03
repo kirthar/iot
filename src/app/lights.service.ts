@@ -7,7 +7,6 @@ export class LightsService {
 
   constructor(private http: Http) { }
 
-  // Get all posts from the API
   getAllLights() {
     return this.http.get('/api/lights')
         .map(res => res.json());

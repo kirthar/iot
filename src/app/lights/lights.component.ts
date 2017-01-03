@@ -14,7 +14,6 @@ export class LightsComponent implements OnInit {
   constructor(private lightsService: LightsService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    // Retrieve posts from the API
     this.lightsService.getAllLights().subscribe(data => {
       this.lights = data.lights ;
     });
