@@ -7,6 +7,8 @@ import { LightsComponent } from './lights.component';
 import {LightsService} from "../shared/lights.service";
 import {MockLightsService} from "../shared/mocklights.service";
 import {Light} from "./light.model";
+import {MockBackend} from "@angular/http/testing";
+import {BaseRequestOptions, Http} from "@angular/http";
 
 describe('LightsComponent', () => {
   let component: LightsComponent;
@@ -38,7 +40,16 @@ describe('LightsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LightsComponent ],
-      providers:    [ LightsService ]
+      providers:    [  MockBackend,
+        BaseRequestOptions,
+        {
+          provide: Http,
+          useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
+            return new Http(backendInstance, defaultOptions);
+          },
+          deps: [MockBackend, BaseRequestOptions]
+        },
+        LightsService ]
     })
     .compileComponents();
   }));
@@ -50,7 +61,7 @@ describe('LightsComponent', () => {
 
     lightsService = fixture.debugElement.injector.get(LightsService);
 
-    // Setup spy on the `getQuote` method
+    // Setup spy on the `getAllLights` method
     spy = spyOn(lightsService, 'getAllLights')
       .and.returnValue(Promise.resolve(testLights));
   });
