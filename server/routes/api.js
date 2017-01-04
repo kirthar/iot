@@ -21,7 +21,6 @@ var lightOn = function (light, callback) {
 
 var lightOff = function (light, callback) {
   api.setLightState(light, state.off()).then(callback)
-    .done();
 };
 
 /* GET api listing. */

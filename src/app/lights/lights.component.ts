@@ -1,6 +1,7 @@
 import { Component, Pipe, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LightsService } from '../lights.service';
+import { LightsService } from '../shared/lights.service';
+import { Light } from './light.model';
 
 @Component({
   selector: 'app-lights',
@@ -9,7 +10,7 @@ import { LightsService } from '../lights.service';
 })
 export class LightsComponent implements OnInit {
   // instantiate lights to an empty array
-     lights: any = [];
+     lights: Array<Light> = [];
 
   constructor(private lightsService: LightsService, private sanitizer: DomSanitizer) { }
 
@@ -19,14 +20,14 @@ export class LightsComponent implements OnInit {
     });
   }
 
-  lightHslColor(light: any) {
+  lightHslColor(light: Light) {
     if (light.state.xy !== undefined) {
       return this.sanitizer.bypassSecurityTrustStyle("background-color: #" + xyBriToRgb(light.state.xy[0], light.state.xy[1], light.state.bri));
     }
     return;
   }
 
-  turnOnLight(light: any){
+  turnOnLight(light: Light){
     this.lightsService.turnOnLight(light).subscribe(data => {
       for (var i = 0; i < this.lights.length; i++) {
         if (this.lights[i].id === light.id) {
@@ -36,7 +37,7 @@ export class LightsComponent implements OnInit {
     });
   }
 
-  turnOffLight(light: any) {
+  turnOffLight(light: Light) {
     this.lightsService.turnOffLight(light).subscribe(data => {
       console.log('data', data);
       for (var i = 0; i < this.lights.length; i++) {

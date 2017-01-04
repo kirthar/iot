@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { LightsComponent } from './lights/lights.component';
-import { LightsService } from "./lights.service";
+import { LightsService } from "./shared/lights.service";
 
 
 const ROUTES = [
