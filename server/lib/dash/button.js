@@ -1,8 +1,9 @@
-var config = require('../config/config.json');
+var hueConfig = require('../config/hue.json');
+    dashConfig = require('../config/dash.json');
 
 var dash_button = require('node-dash-button');
 
-var buttons = [config.buttons.on, config.buttons.nerf];
+var buttons = [dashConfig.on, dashConfig.nerf];
 
 var dash = dash_button(buttons, null, 1000, 'all'); //address from step above
 
@@ -18,8 +19,8 @@ var displayError = function(err) {
     console.error(err);
 };
 
-var host = config.hue.bridge_ip,
-    username = config.hue.token,
+var host = hueConfig.bridge_ip,
+    username = hueConfig.token,
     api = new HueApi(host, username),
     state = lightState.create();
 

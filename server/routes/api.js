@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-var config = require('../../config/config.json');
+var config = require('../../config/hue.json');
 var customHue = require('../lib/hue/hue');
 
 var hue = require("node-hue-api"),
   HueApi = hue.HueApi,
   lightState = hue.lightState;
 
-var host = config.hue.bridge_ip,
-  username = config.hue.token,
+var host = config.bridge_ip,
+  username = config.token,
   api = new HueApi(host, username),
   state = lightState.create();
 
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
 /* GET Lights */
 router.get('/lights', function (req, res) {
-  var newHue = new customHue(config.hue);
+  var newHue = new customHue(config);
 
   newHue.findLights(function(result) {
     res.status(200).json(result);

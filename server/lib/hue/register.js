@@ -1,8 +1,8 @@
-var config = require('../config/config.json');
+var config = require('../config/hue.json');
 
 var HueApi = require("node-hue-api").HueApi;
 
-var hostname = config.hue.bridge_ip,
+var hostname = config.bridge_ip,
     userDescription = "IoT webapp";
 
 var displayUserResult = function(result) {
