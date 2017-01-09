@@ -1,42 +1,60 @@
 var hue = require("node-hue-api");
 var HueApi = hue.HueApi;
 
-function Hue(config) {
+class Hue {
+
+  constructor(config) {
     this.api = new HueApi(config.bridge_ip, config.token);
     this.state = hue.lightState.create();
-}
 
-Hue.prototype.findLights = function(callbackOk, callbackError) {
+    this.lightModes = {
+      'party': this.partyMode,
+      'on': this.onMode,
+      'off': this.offMode
+    };
+  }
 
+  partyMode(hue, light, callback) {
+    callback();
+  }
+
+  onMode(hue, light, callback) {
+    hue.api.setLightState(light, hue.state.on())
+      .then(callback)
+      .fail(callback)
+      .done();
+  }
+
+  offMode(hue, light, callback) {
+    hue.api.setLightState(light, hue.state.off())
+      .then(callback)
+      .fail(callback)
+      .done();
+  }
+
+  findLights(callbackOk, callbackError) {
     this.api.lights()
-        .then(callbackOk)
-        .fail(callbackError || callbackOk)
-        .done();
-};
+      .then(callbackOk)
+      .fail(callbackError || callbackOk)
+      .done();
+  };
 
-lightStates = {
-  'party': function(light, callback){ callback();},
-  'on': function(light, callback){ this.api.setLightState(light, this.state.on())
-    .then(callback)
-    .fail(callback)
-    .done();},
-  'off': function(light, callback){ this.api.setLightState(light, this.state.off())
-    .then(callback)
-    .fail(callback)
-    .done();},
-};
+  setLightState(light, state, callback) {
+    this.lightModes[state](this, light, callback);
+  };
 
-Hue.prototype.setLightState = function(light, state, callback) {
-  lightStates[state](callback);
-};
-
-Hue.prototype.setLightStateAll = function(state, callback) {
-  this.findLights(function(lights){
-    for(var i = 0;  i < lights.length; i++) {
-      lightStates[state](lights[i].id, callback);
-    }
-  }, function(){console.log("Error finding lights")});
-};
-
-
+  setLightStateAll(state, callback) {
+    console.log('Set all lights to ', state);
+    let that = this;
+    this.findLights(function(data){
+      let lights = data.lights;
+      console.log(`Found ${lights.length} lights`);
+      for(var i = 0;  i < lights.length; i++) {
+        that.lightModes[state](that, lights[i].id, callback);
+      }
+    }, function(error){
+      console.log(error);
+      console.log("Error finding lights")});
+  };
+}
 module.exports = Hue;
