@@ -7,8 +7,8 @@
         <p [style]="lightHslColor(light)">
           TEST
         </p>
-        <button (click)="turnOnLight(light)" class="card-link btn" [ngClass]="{'btn-primary': light.state.on}">ON</button>
-        <button (click)="turnOffLight(light)" class="card-link btn" [ngClass]="{'btn-primary': !light.state.on}">OFF</button>
+        <button (click)="turnOnLight(light)" class="card-link btn" [ngClass]="{'btn-primary': light.state.on, 'disabled': light.state.reachable}">ON</button>
+        <button (click)="turnOffLight(light)" class="card-link btn" [ngClass]="{'btn-primary': !light.state.on, 'disabled': light.state.reachable}">OFF</button>
       </div>
     </div>
   </div>
