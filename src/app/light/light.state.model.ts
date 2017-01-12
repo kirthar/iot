@@ -3,5 +3,6 @@ export interface LightState {
   bri: number,
   sat: number,
   state: string,
-  xy: Array<number>
+  xy: Array<number>,
+  rgb: Array<number>
 }

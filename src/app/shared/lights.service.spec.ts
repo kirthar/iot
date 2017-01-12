@@ -2,7 +2,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import {Http, BaseRequestOptions} from '@angular/http';
 import { LightsService } from './lights.service';
-import { Light } from '../lights/light.model';
+import { Light } from '../light/light.model';
 import { MockLightsService } from './mocklights.service';
 import { MockBackend } from "@angular/http/testing";
 

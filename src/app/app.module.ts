@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { LightsComponent } from './lights/lights.component';
 import { LightsService } from "./shared/lights.service";
+import { LightComponent } from './light/light.component';
 
 
 const ROUTES = [
@@ -25,7 +26,8 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    LightsComponent
+    LightsComponent,
+    LightComponent
   ],
   imports: [
     BrowserModule,

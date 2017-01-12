@@ -6,7 +6,7 @@ import { DebugElement } from '@angular/core';
 import { LightsComponent } from './lights.component';
 import {LightsService} from "../shared/lights.service";
 import {MockLightsService} from "../shared/mocklights.service";
-import {Light} from "./light.model";
+import {Light} from "../light/light.model";
 import {MockBackend} from "@angular/http/testing";
 import {BaseRequestOptions, Http} from "@angular/http";
 

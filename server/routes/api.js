@@ -38,14 +38,14 @@ router.get('/lights', function (req, res) {
 });
 
 router.get('/lights/:light', function (req, res) {
-  api.lightStatus(req.params['light']).then(function(result) {
+  api.lightStatusWithRGB(req.params['light']).then(function(result) {
     res.status(200).json(result);
   }).done();
 });
 
 router.get('/lights/:light/on', function (req, res) {
   lightOn(req.params['light'], function(){
-    api.lightStatus(req.params['light']).then(function(result) {
+    api.lightStatusWithRGB(req.params['light']).then(function(result) {
       res.status(200).json(result);
     }).done();
   });
@@ -53,7 +53,7 @@ router.get('/lights/:light/on', function (req, res) {
 
 router.get('/lights/:light/off', function (req, res) {
   lightOff(req.params['light'], function() {
-    api.lightStatus(req.params['light']).then(function(result) {
+    api.lightStatusWithRGB(req.params['light']).then(function(result) {
       res.status(200).json(result);
     }).done();
   });
