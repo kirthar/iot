@@ -1,8 +1,10 @@
 export interface LightState {
-  hue: number,
-  bri: number,
-  sat: number,
-  state: string,
-  xy: Array<number>,
-  rgb: Array<number>
+  hue: number;
+  bri: number;
+  sat: number;
+  state: string;
+  xy: Array<number>;
+  rgb: Array<number>;
+  ct: number;
+  colormode: string;
 }

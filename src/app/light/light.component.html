@@ -4,6 +4,7 @@
   <p [style]="lightColor(light)">
     TEST
   </p>
+  <input type="range" min="0" max="100" value="{{100*light.state.bri/255}}" #ref (change)="setBri(ref.value)">
   <button (click)="turnOnLight(light)" class="card-link btn" [ngClass]="{'btn-primary': light.state.on}" [disabled]="!light.state.reachable">ON</button>
   <button (click)="turnOffLight(light)" class="card-link btn" [ngClass]="{'btn-primary': !light.state.on}" [disabled]="!light.state.reachable">OFF</button>
 </div>

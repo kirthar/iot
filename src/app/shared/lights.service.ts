@@ -27,4 +27,9 @@ export class LightsService {
       .map(res => res.json());
   }
 
+  setBri( light: any, bri: number ) {
+    return this.http.get(`/api/lights/${light.id}/bri/${bri}`)
+      .map(res => res.json());
+  }
+
 }

@@ -15,12 +15,16 @@ var host = config.bridge_ip,
 
 
 var lightOn = function (light, callback) {
-  api.setLightState(light, state.on()).then(callback)
+  api.setLightState(light, state.on()).then(callback).fail(function(err){console.log('Error:', err)})
     .done();
 };
 
 var lightOff = function (light, callback) {
-  api.setLightState(light, state.off()).then(callback)
+  api.setLightState(light, state.off()).then(callback).fail(function(err){console.log('Error:', err)})
+};
+
+var setBri = function (light, bri, callback) {
+  api.setLightState(light, state.on().brightness(bri)).then(callback).fail(function(err){console.log('Error:', err)})
 };
 
 /* GET api listing. */
@@ -34,18 +38,18 @@ router.get('/lights', function (req, res) {
 
   newHue.findLights(function(result) {
     res.status(200).json(result);
-  });
+  }, function(err){console.log(err)});
 });
 
 router.get('/lights/:light', function (req, res) {
-  api.lightStatusWithRGB(req.params['light']).then(function(result) {
+  api.lightStatus(req.params['light']).then(function(result) {
     res.status(200).json(result);
   }).done();
 });
 
 router.get('/lights/:light/on', function (req, res) {
   lightOn(req.params['light'], function(){
-    api.lightStatusWithRGB(req.params['light']).then(function(result) {
+    api.lightStatus(req.params['light']).then(function(result) {
       res.status(200).json(result);
     }).done();
   });
@@ -53,10 +57,19 @@ router.get('/lights/:light/on', function (req, res) {
 
 router.get('/lights/:light/off', function (req, res) {
   lightOff(req.params['light'], function() {
-    api.lightStatusWithRGB(req.params['light']).then(function(result) {
+    api.lightStatus(req.params['light']).then(function(result) {
       res.status(200).json(result);
-    }).done();
+    }).fail(function(err){console.log('Error:', err)}).done();
   });
 });
+
+router.get('/lights/:light/bri/:bri', function (req, res) {
+  setBri(req.params['light'], req.params['bri'], function() {
+    api.lightStatus(req.params['light']).then(function(result) {
+      res.status(200).json(result);
+    }).fail(function(err){console.log('Error:', err)}).done();
+  });
+});
+
 
 module.exports = router;
