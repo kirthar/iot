@@ -1,4 +1,3 @@
-# /etc/init.d/iot_server
 #!/bin/bash
 
 ### BEGIN INIT INFO
