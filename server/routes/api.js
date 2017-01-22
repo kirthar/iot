@@ -14,6 +14,7 @@ var host = config.bridge_ip,
   state = lightState.create();
 
 
+
 var lightOn = function (light, callback) {
   api.setLightState(light, state.on()).then(callback).fail(function(err){console.log('Error:', err)})
     .done();

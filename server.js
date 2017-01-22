@@ -1,3 +1,5 @@
+process.title = 'iot_server';
+
 // Get dependencies
 const express = require('express');
 const path = require('path');

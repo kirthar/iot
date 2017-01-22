@@ -1,0 +1,30 @@
+# /etc/init.d/iot_server
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          iot_server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This service is used to start an IoT Server
+### END INIT INFO
+
+
+case "$1" in
+    start)
+        echo "Starting IoT Server"
+        sudo node $PROJECT/server.js
+        ;;
+    stop)
+        echo "Stopping IoT Server"
+        killall iot_server
+        ;;
+    *)
+        echo "Usage: /etc/init.d/servod start|stop"
+        exit 1
+        ;;
+esac
+
+exit 0
