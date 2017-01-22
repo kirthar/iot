@@ -14,7 +14,7 @@
 case "$1" in
     start)
         echo "Starting IoT Server"
-        sudo node $HOME/iot/server.js
+        sudo PORT=80 node $HOME/iot/server.js > /var/log/iot_server.log 2> iot_server.err.log
         ;;
     stop)
         echo "Stopping IoT Server"
