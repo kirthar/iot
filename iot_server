@@ -15,14 +15,14 @@
 case "$1" in
     start)
         echo "Starting IoT Server"
-        sudo node $PROJECT/server.js
+        sudo node $HOME/iot/server.js
         ;;
     stop)
         echo "Stopping IoT Server"
         killall iot_server
         ;;
     *)
-        echo "Usage: /etc/init.d/servod start|stop"
+        echo "Usage: /etc/init.d/iot_server start|stop"
         exit 1
         ;;
 esac
