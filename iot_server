@@ -10,14 +10,15 @@
 # Description:       This service is used to start an IoT Server
 ### END INIT INFO
 
+export PORT=80
 
 case "$1" in
     start)
-        echo "Starting IoT Server"
-        sudo PORT=80 node $HOME/iot/server.js > /var/log/iot_server.log 2> iot_server.err.log
+        echo "Starting IoT Server" >&2
+        sudo node $HOME/iot/server.js &> /var/log/iot_server.log >2& iot_server.err.log
         ;;
     stop)
-        echo "Stopping IoT Server"
+        echo "Stopping IoT Server" >&2
         killall iot_server
         ;;
     *)
