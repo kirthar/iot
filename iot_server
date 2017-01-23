@@ -11,6 +11,7 @@
 ### END INIT INFO
 
 export PORT=80
+export PROCESS_NAME="iot_server"
 
 case "$1" in
     start)
@@ -19,7 +20,7 @@ case "$1" in
         ;;
     stop)
         echo "Stopping IoT Server" >&2
-        killall iot_server
+        killall $PROCESS_NAME
         ;;
     *)
         echo "Usage: /etc/init.d/iot_server start|stop"

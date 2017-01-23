@@ -1,4 +1,4 @@
-process.title = 'iot_server';
+process.title = process.env.PROCESS_NAME || 'iot_server';
 
 // Get dependencies
 const express = require('express');
