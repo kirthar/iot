@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ### BEGIN INIT INFO
 # Provides:          iot_server
@@ -9,18 +9,16 @@
 # Short-Description: Example initscript
 # Description:       This service is used to start an IoT Server
 ### END INIT INFO
-
-export PORT=80
-export PROCESS_NAME="iot_server"
-
+PROCESS_TITLE="iot_server"
+SERVER_PORT=80
 case "$1" in
     start)
         echo "Starting IoT Server" >&2
-        sudo node $HOME/iot/server.js &> /var/log/iot_server.log >2& iot_server.err.log
+        sudo PORT=$SERVER_PORT PROCESS_NAME=$PROCESS_TITLE node /home/pi/iot/server.js &> /var/log/iot_server.log >&2 iot_server.err.log
         ;;
     stop)
         echo "Stopping IoT Server" >&2
-        killall $PROCESS_NAME
+        sudo killall $PROCESS_TITLE
         ;;
     *)
         echo "Usage: /etc/init.d/iot_server start|stop"
