@@ -18,37 +18,35 @@ SERVER_PORT=80
 start() {
   echo "Starting IoT Server" >&2
   touch /var/lock/subsys/$PROCESS_TITLE
- sudo PORT=$SERVER_PORT PROCESS_NAME=$PROCESS_TITLE node /home/pi/iot/server.js &> /var/log/iot_se
-rver.log >&2 iot_server.err.log
+  sudo PORT=$SERVER_PORT PROCESS_NAME=$PROCESS_TITLE node /home/pi/iot/server.js >> /var/log/iot_server.log 2>&1
 }
 
 stop() {
-        echo "Stopping IoT Server" >&2
-        sudo killall $PROCESS_TITLE
-	rm -f /var/lock/subsys/$PROCESS_TITLE
+  echo "Stopping IoT Server" >&2
+  sudo killall $PROCESS_TITLE
+	sudo rm -f /var/lock/subsys/$PROCESS_TITLE
 	echo
 }
 
 
 case "$1" in
-    start)
-        start
-	;;
-    stop)
-	stop
-        ;;
-    restart)
-        stop
-        start
-        ;;
-    status)
-        status $PROCESS_TITLE
-        ;;
-
-    *)
-        echo "Usage: /etc/init.d/iot_server start|stop|restart|status"
-        exit 1
-        ;;
+  start)
+    start
+	  ;;
+  stop)
+	  stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  status)
+    status $PROCESS_TITLE
+    ;;
+  *)
+    echo "Usage: /etc/init.d/iot_server start|stop|restart|status"
+    exit 1
+    ;;
 esac
 
 exit 0
