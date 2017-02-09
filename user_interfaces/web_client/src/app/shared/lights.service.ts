@@ -8,7 +8,7 @@ export class LightsService {
   constructor(private http: Http) { }
 
   getAllLights() {
-    return this.http.get('/api/lights')
+    return this.http.post('http://localhost:32770/', {role: "m", cmd:"a"})
         .map(res => res.json());
   }
 

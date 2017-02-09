@@ -8,10 +8,10 @@ LABEL vendor=Kirthar \
 ADD . /
 RUN npm install
 
-ENV PORT 3001
-ENV PROCESS_TITLE "light_server"
+ENV PORT 8082
+ENV PROCESS_TITLE "web_server"
 
-EXPOSE 3001
+EXPOSE 8082
 
 CMD [ "npm", "start" ]
 
