@@ -1,3 +1,4 @@
+# Create image based on the official Node latest image from Dockerhub
 FROM node:latest
 
 LABEL vendor=Kirthar \
@@ -5,14 +6,22 @@ LABEL vendor=Kirthar \
   com.iot.is-production="" \
   com.iot.version="0.0.1-alpha"
 
-ADD . /
+# Change directory so that our commands run inside this new directory
+WORKDIR /web
+
+# Copy dependency definitions
+COPY package.json /web
+
+# Install dependecies
 RUN npm install
 
-ENV PORT 8082
-ENV PROCESS_TITLE "web_server"
+# Get all the code needed to run the app
+COPY . /web
 
-EXPOSE 8082
+# Expose the port the app runs in
+EXPOSE  4200
 
+# Serve the app
 CMD [ "npm", "start" ]
 
 

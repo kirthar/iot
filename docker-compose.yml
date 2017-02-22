@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: user_interfaces/web_client
+    ports:
+     - "4200:4200"
+
+  lights:
+    build: systems/lightserver
+    ports:
+      - "3001:3001"

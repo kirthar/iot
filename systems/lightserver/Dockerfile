@@ -5,7 +5,8 @@ LABEL vendor=Kirthar \
   com.iot.is-production="" \
   com.iot.version="0.0.1-alpha"
 
-ADD . /
+ADD . /server
+WORKDIR /server
 RUN npm install
 
 ENV PORT 3001
